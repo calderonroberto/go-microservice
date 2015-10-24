@@ -6,12 +6,15 @@ import (
   "encoding/json"
 )
 
+// The Thing Model, mapping the URL.Query() contents
 type Thing struct {
-  Name  string
+  Values map[string][]string
 }
 
+// Handles get requests for the /things service
 func things(w http.ResponseWriter, r *http.Request) {
-  thing := Thing{Name: "A thing"}
+  query := r.URL.Query()
+  thing := Thing{Values: query}
   json.NewEncoder(w).Encode(thing)
 }
 
